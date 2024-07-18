@@ -1,0 +1,30 @@
+name: Deployment exercise
+on: push
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: download the code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: npm ci
+    lint:
+        runs-on: ubuntu_latest
+        needs: build
+        steps:
+            - name: lint
+              run: npm run lint
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test the code
+              run: npm run test
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test
+        steps:
+            - name: Deploy code
+              run: echo "Deploying......."
+            
+
+
